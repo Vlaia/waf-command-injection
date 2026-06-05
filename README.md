@@ -1,11 +1,5 @@
 # WAF za Command Injection
 
-Projekat za kurs Bezbednost veb servisa. Ideja je da se napravi jednostavan WAF middleware u Flasku koji štiti aplikaciju od command injection napada.
-
-## O čemu se radi
-
-Command injection je napad gde napadač ubaci OS komandu kroz korisnički unos. Na primer, ako aplikacija radi `ping <host>` i ne sanitizuje unos, neko može da pošalje `google.com; cat /etc/passwd` i dobije sadržaj sistemskog fajla. OWASP ga svrstava u A03:2021 – Injection.
-
 Projekat ima dve verzije Flask aplikacije:
 - `app.py` – namerno ranjiva, bez ikakve zaštite (pokrenuti na portu 5000)
 - `app_protected.py` – ista aplikacija ali sa WAF-om (port 5001)
@@ -27,8 +21,6 @@ python app.py
 # zasticena verzija
 python app_protected.py
 ```
-
-Upozorenje: ranjiva aplikacija je namerno nesigurna, pokretati samo lokalno.
 
 ## Kako WAF radi
 
@@ -56,7 +48,3 @@ Skripta testira 10 napadnih payloada i 3 legitimna zahteva i ispisuje koji su pr
 
 - `main` – ranjiva aplikacija bez zaštite
 - `protection` – aplikacija sa WAF-om
-
-## Napomena
-
-Ovo je demonstracija koncepta. U produkciji bi trebalo koristiti `subprocess` sa listom argumenata umesto `shell=True` (to je pravi fix), plus zrela WAF rešenja kao ModSecurity. Ovaj WAF ne pokriva HTTP body, samo GET parametre, i ranjiv je na napredne tehnike enkodiranja.
